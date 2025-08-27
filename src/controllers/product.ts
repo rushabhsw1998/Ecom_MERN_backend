@@ -9,6 +9,7 @@ import { invalidateCache } from "../utils/features.js";
 // import { faker } from "@faker-js/faker"
 
 export const newProduct = TryCatch(async (req: Request<{}, {}, NewProductRequestBody>, res: Response, next: NextFunction) => {
+    console.log(req.body)
     const { name, price, stock, category } = req.body;
     const photo = req.file;
 

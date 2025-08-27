@@ -18,28 +18,30 @@ export const invalidateCache = async ({ product, order, admin, userId, orderId, 
             "all-product",
             `product-${productId}`
         ]
-        if (typeof productId == "string") {
-            productsKeys.push(`product-${productId}`)
-        } else {
-            if (productId && productId?.length > 0) {
-                productsKeys = [...productsKeys, ...productId?.map(x => `product-${x}`)]
-            }
-        }
+        // if (typeof productId == "string") {
+        //     productsKeys.push(`product-${productId}`)
+        // } else {
+        //     if (productId && productId?.length > 0) {
+        //         productsKeys = [...productsKeys, ...productId?.map(x => `product-${x}`)]
+        //     }
+        // }
         // // //`product-${id}`
         // // const products = await Product.find({}).select("_id");
         // // products.forEach(i => {
         // //     productsKeys.push(`product-${i._id}`)
         // // })
 
+        if (typeof productId == "string") productsKeys.push(`product-${productId}`);
+        if (typeof productId == "object") productId.forEach((i) => productsKeys.push(`product-${i}`));
         myCache.del(productsKeys)
     }
     if (order) {
         const orderKeys: string[] = ["all-orders", `my-orders-${userId}`, `order-${orderId}`]
 
-        const orders = await Order.find({}).select("_id");
-        orders.forEach(i => {
-            orderKeys.push(`order-${i._id}`)
-        })
+        // const orders = await Order.find({}).select("_id");
+        // orders.forEach(i => {
+        //     orderKeys.push(`order-${i._id}`)
+        // })
 
         myCache.del(orderKeys)
 

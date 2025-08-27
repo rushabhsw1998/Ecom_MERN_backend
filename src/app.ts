@@ -8,6 +8,7 @@ import morgan from "morgan";
 import userRoute from "./routes/user.js"
 import productRoute from "./routes/products.js"
 import orderRoute from "./routes/order.js"
+import paymentRoute from "./routes/payment.js";
 
 config({
     path: "./.env"
@@ -21,13 +22,14 @@ export const myCache = new NodeCache();
 
 const app = express();
 app.use(express.json());
-app.use(morgan("dev"))
-
+app.use(morgan("dev"));
 // using routes
 // "api/v1/" this is prefix for api.
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/product", productRoute);
 app.use("/api/v1/order", orderRoute);
+app.use("/api/v1/payment", paymentRoute);
+
 app.use("/uploads", express.static("uploads"))
 // Error handling middleware
 app.use(errorMiddleware)
