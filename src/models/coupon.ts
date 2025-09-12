@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const schema = new mongoose.Schema({
     code: {
         type: String,
-        required: [true, "Please enter the coupen code."],
+        required: [true, "Please enter the coupon code."],
         unique: true
     },
     amount: {
