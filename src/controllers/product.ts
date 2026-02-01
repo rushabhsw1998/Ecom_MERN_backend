@@ -133,7 +133,7 @@ export const deleteProduct = TryCatch(async (req, res, next) => {
     if (!product) return next(new ErrorHandler("Product not found", 400));
 
     rm(product.photo!, () => {
-        console.log('product photo deleted')
+        console.log('Product photo deleted')
     })
     //delete query
     await product.deleteOne();
@@ -141,7 +141,7 @@ export const deleteProduct = TryCatch(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        message: "product deleted successfully."
+        message: "Product deleted successfully."
     })
 });
 
