@@ -104,7 +104,7 @@ export const getDashboardStats = TryCatch(async (req, res, next) => {
         const thisMonthRevenue = thisMonthOrders.reduce((total, order) => total + (order.total || 0), 0);
         const lastMonthRevenue = lastMonthOrders.reduce((total, order) => total + (order.total || 0), 0);
 
-        const changePrecent = {
+        const changePercent = {
             revenue: calculatePercentage(thisMonthRevenue, lastMonthRevenue),
             product: calculatePercentage(thisMonthProducts.length, lastMonthProducts.length),
             user: calculatePercentage(thisMonthUsers.length, lastMonthUsers.length),
@@ -141,7 +141,7 @@ export const getDashboardStats = TryCatch(async (req, res, next) => {
 
         const modifyLatestTrasaction = latestTransaction.map(i => ({
             _id: i._id,
-            disconnect: i.discount,
+            discount: i.discount,
             amount: i.total,
             quantity: i.orderItems.length,
             status: i.status
@@ -151,7 +151,7 @@ export const getDashboardStats = TryCatch(async (req, res, next) => {
             userRatio,
             latestTransaction: modifyLatestTrasaction,
             categoryCount,
-            changePrecent,
+            changePercent,
             count,
             chart: {
                 order: orderMonthCount,
@@ -279,9 +279,9 @@ export const getBarCharts = TryCatch(async (req, res, next) => {
         const orderCount = getChartData({ length: 12, docArr: twelveMonthOrders, today })
 
         charts = {
-            productCount: productCount,
-            user: userCount,
-            order: orderCount
+            products: productCount,
+            users: userCount,
+            orders: orderCount
         }
     }
     myCache.set(key, JSON.stringify(charts))
@@ -342,8 +342,8 @@ export const getLineCharts = TryCatch(async (req, res, next) => {
         const revenue = getChartData({ length: 12, docArr: twelveMonthOrders, today, property: "total" })
 
         charts = {
-            productCount: productCount,
-            user: userCount,
+            products: productCount,
+            users: userCount,
             discount,
             revenue
         }
